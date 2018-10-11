@@ -60,6 +60,12 @@ public class GeofenceTransitionsIntentService extends IntentService {
                     geofenceTransition,
                     triggeringGeofences
             );
+
+            // send notification
+            sendNotification(geofenceTransitionDetail);
+            Log.i(TAG, geofenceTransitionDetail);
+        } else {
+            Log.e(TAG, getString(R.string.geofence_transition_invalid_type, geofenceTransition));
         }
     }
 
@@ -91,7 +97,6 @@ public class GeofenceTransitionsIntentService extends IntentService {
                 return getString(R.string.unknown_geofence_transition);
         }
     }
-
 
 
     private void sendNotification(String notificationDetails) {
