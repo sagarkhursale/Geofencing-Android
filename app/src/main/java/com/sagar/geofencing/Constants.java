@@ -33,7 +33,7 @@ public final class Constants {
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS =
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
     //public static final float GEOFENCE_RADIUS_IN_METERS = 1609; // 1 mile, 1.6 km
-    public static final float GEOFENCE_RADIUS_IN_METERS = 1; // 1 mile, 1.6 km
+    public static final float GEOFENCE_RADIUS_IN_METERS = 100; // 1 mile, 1.6 km
 
 
     /**
@@ -42,12 +42,15 @@ public final class Constants {
     public static final HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<String, LatLng>();
     static {
 
-        BAY_AREA_LANDMARKS.put("MIMER", new LatLng(18.735490, 73674340));
+        BAY_AREA_LANDMARKS.put("My Location", new LatLng(18.7359611, 73.6807045));
 
-        // Googleplex.
+        // medical college
+        BAY_AREA_LANDMARKS.put("MIMER", new LatLng(18.735490, 73.674340));
+
+        // syndicate bank.
         BAY_AREA_LANDMARKS.put("SYNDICATE", new LatLng(18.7342452,73.6775154));
 
-        // Test
+        // Agency
         BAY_AREA_LANDMARKS.put("HP GAS", new LatLng(18.7326348,73.6756754));
     }
 
