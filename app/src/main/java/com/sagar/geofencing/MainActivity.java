@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Button mAddGeofenceButton;
+    private TextView text_Latitude, text_Longitude, text_Status;
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
 
         mAddGeofenceButton = findViewById(R.id.add_geofences_button);
+        text_Latitude = findViewById(R.id.txt_latitude);
+        text_Longitude = findViewById(R.id.txt_longitude);
 
         mGeofenceList = new ArrayList<>();
 
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient();
         //
     }
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -141,13 +146,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-
     private void updateUI(Location location) {
         Log.i(TAG, "updateUI : " + location.toString());
-        //text_Latitude.setText(String.valueOf(location.getLatitude()));
-        //text_Longitude.setText(String.valueOf(location.getLongitude()));
+        text_Latitude.setText(String.valueOf(location.getLatitude()));
+        text_Longitude.setText(String.valueOf(location.getLongitude()));
     }
-
 
 
     public void populateGeofenceList() {
@@ -179,7 +182,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
@@ -188,12 +190,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-
     private PendingIntent getGeofencingPendingIntent() {
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
-
 
 
     public void onResult(@NonNull Status status) {

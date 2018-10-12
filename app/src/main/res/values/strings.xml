@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Geofencing</string>
 
+    <string name="latitude">Latitude : </string>
+    <string name="logitude">Latitude : </string>
+
     <!-- Buttons strings -->
     <string name="add_geofences">Add geofences</string>
     <string name="remove_geofences">Remove geofences</string>
