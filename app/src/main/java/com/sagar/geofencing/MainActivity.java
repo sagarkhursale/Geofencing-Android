@@ -50,8 +50,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         mAddGeofenceButton = findViewById(R.id.add_geofences_button);
 
-        buildGoogleApiClient();
+        mGeofenceList = new ArrayList<>();
 
+        // Get the geofences used. Geofence data is hard coded in this sample.
+        populateGeofenceList();
+
+        buildGoogleApiClient();
         //
     }
 
@@ -137,11 +141,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
+
     private void updateUI(Location location) {
         Log.i(TAG, "updateUI : " + location.toString());
         //text_Latitude.setText(String.valueOf(location.getLatitude()));
         //text_Longitude.setText(String.valueOf(location.getLongitude()));
     }
+
 
 
     public void populateGeofenceList() {
@@ -173,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
+
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
@@ -181,10 +188,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
+
     private PendingIntent getGeofencingPendingIntent() {
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
 
 
     public void onResult(@NonNull Status status) {
