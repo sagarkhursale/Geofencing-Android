@@ -42,7 +42,7 @@ public final class Constants {
     public static final HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<String, LatLng>();
     static {
 
-        BAY_AREA_LANDMARKS.put("My Location", new LatLng(18.7359611, 73.6807045));
+        BAY_AREA_LANDMARKS.put("My Location", new LatLng(18.5246036, 73.7929269));
 
         // medical college
         BAY_AREA_LANDMARKS.put("MIMER", new LatLng(18.735490, 73.674340));
