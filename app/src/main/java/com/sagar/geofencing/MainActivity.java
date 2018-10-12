@@ -1,6 +1,8 @@
 package com.sagar.geofencing;
 
 import android.Manifest;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -16,6 +18,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -26,7 +29,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Button mAddGeofenceButton;
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 updateUI(mLastLocation);
             }
 
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest,  this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
 
@@ -115,9 +118,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-
     private void updateUI(Location location) {
-        Log.i(TAG, "updateUI : "+location.toString());
+        Log.i(TAG, "updateUI : " + location.toString());
         //text_Latitude.setText(String.valueOf(location.getLatitude()));
         //text_Longitude.setText(String.valueOf(location.getLongitude()));
     }
@@ -149,6 +151,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     // Create the geofence.
                     .build());
         }
+    }
+
+
+    private GeofencingRequest getGeofencingRequest() {
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.addGeofences(mGeofenceList);
+        return builder.build();
+    }
+
+
+    private PendingIntent getGeofencingPendingIntent() {
+        Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
 
